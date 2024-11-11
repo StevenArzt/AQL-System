@@ -4,7 +4,9 @@ import static org.fusesource.jansi.Ansi.ansi;
 import static org.fusesource.jansi.Ansi.Color.GREEN;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.commons.io.FileUtils;
 import org.slf4j.LoggerFactory;
 
 import de.foellix.aql.Log;
@@ -26,7 +28,7 @@ public class CommandLineInterface {
 	private static String query = null;
 	private static boolean gui = false;
 
-	public static void main(final String[] args) {
+	public static void main(final String[] args) throws IOException {
 		// Hide SLF4J-Logger output (otherwise triggered e.g. by Soot)
 		try (LogSilencer s = new LogSilencer()) {
 			LoggerFactory.getLogger(CommandLineInterface.class);
@@ -111,6 +113,8 @@ public class CommandLineInterface {
 						output = args[i + 1];
 					} else if (args[i].equals("-q") || args[i].equals("-query")) {
 						query = args[i + 1];
+					} else if (args[i].equals("-qf") || args[i].equals("-queryfile")) {
+						query = FileUtils.readFileToString(new File(args[i + 1]), "UTF-8");
 					} else if (args[i].equals("-rules")) {
 						CLIHelper.evaluateRules(args[i + 1]);
 					} else if (args[i].equals("-d") || args[i].equals("-debug")) {
