@@ -288,16 +288,6 @@ public class FileHelper {
 		return Helper.replaceAllWhiteSpaceChars(new String(Files.readAllBytes(answerFile.toPath())));
 	}
 
-	public static String getApkFileName(File apkFile) {
-		final String name = apkFile.getName();
-		final String ending = "." + Helper.cut(name, ".", Helper.OCCURENCE_LAST);
-		if (ending.equalsIgnoreCase(FILE_ENDING_APK)) {
-			return Helper.cutFromStart(name, ".", Helper.OCCURENCE_LAST);
-		} else {
-			return name;
-		}
-	}
-
 	public static boolean downloadFile(String URL, File destination) {
 		return downloadFile(URL, destination, null);
 	}

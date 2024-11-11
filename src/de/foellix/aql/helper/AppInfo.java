@@ -2,6 +2,8 @@ package de.foellix.aql.helper;
 
 import java.io.File;
 
+import org.apache.commons.io.FilenameUtils;
+
 public class AppInfo {
 	private File apkFile;
 	private String filename;
@@ -9,7 +11,7 @@ public class AppInfo {
 
 	public AppInfo(File apkFile) {
 		this.apkFile = apkFile;
-		this.filename = FileHelper.getApkFileName(apkFile);
+		this.filename = FilenameUtils.getBaseName(apkFile.getName());
 		this.manifestInfo = ManifestHelper.getInstance().getManifest(apkFile);
 	}
 
