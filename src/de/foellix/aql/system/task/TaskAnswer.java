@@ -30,6 +30,7 @@ public class TaskAnswer implements Serializable {
 	private int type;
 	private int subjectOfInterest;
 	private boolean answered;
+	private boolean failed;
 
 	public TaskAnswer(Task parent, int type) {
 		this(parent, type, Question.QUESTION_TYPE_UNKNOWN);
@@ -51,6 +52,10 @@ public class TaskAnswer implements Serializable {
 
 	public boolean isAnswered() {
 		return this.answered;
+	}
+	
+	public boolean isFailed() {
+		return this.failed;
 	}
 
 	public void setAnswerFile(File answerFile) {
@@ -196,4 +201,9 @@ public class TaskAnswer implements Serializable {
 		}
 		return sb.toString();
 	}
+	
+	public void markAsFailed() {
+		this.failed = true;
+	}
+	
 }

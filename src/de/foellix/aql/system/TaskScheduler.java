@@ -79,7 +79,7 @@ public class TaskScheduler {
 				this.parent.queryFinished(task, Task.STATUS_EXECUTION_SUCCESSFUL);
 				updateProgress(false);
 				return;
-			} else if (!task.getTaskAnswer().isAnswered()) {
+			} else if (!task.getTaskAnswer().isAnswered() && !task.getTaskAnswer().isFailed()) {
 				if (!this.runningTasks.containsKey(task)) {
 					// TODO: (After 2.0.0 release) Consider time estimation
 					if (checkMemory(task) && checkInstances(task)) {
@@ -305,6 +305,9 @@ public class TaskScheduler {
 								"Answering a part of the query canceled: "
 										+ Storage.getInstance().getData().getQuestionFromQuestionTaskMap(task, true));
 					}
+					
+					task.getTaskAnswer().markAsFailed();
+					next();
 				}
 			}
 		}
